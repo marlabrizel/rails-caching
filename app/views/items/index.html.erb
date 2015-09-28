@@ -1,21 +1,21 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <% cache(controller: 'items', action: 'index', action_suffix: 'item_count') do %>
+<% cache(cache_key_for(Item)) do %>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
         <h1><%= @items.count %> Items</h1>
-      <% end %>
-    </div>
-  </div>
-  <div class="row"></div>
-  <% cache(controller: 'items', action: 'index', action_suffix: 'item_all') do %>
-  <% @items.each do |item| %>
-      <div class="col-sm-3">
-        <h5><%= item.name %></h5>
-        <%= link_to(image_tag(item.image_url), item_path(item)) %>
-        <p>
-          <%= item.description %>
-        </p>
       </div>
+    </div>
+    <div class="row"></div>
+    <% @items.each do |item| %>
+      <% cache(item) do %>
+        <div class="col-sm-3">
+          <h5><%= item.name %></h5>
+          <%= link_to(image_tag(item.image_url), item_path(item)) %>
+          <p>
+            <%= item.description %>
+          </p>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>
