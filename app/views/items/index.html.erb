@@ -1,13 +1,13 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <% cache do %>
+      <% cache(controller: 'items', action: 'index', action_suffix: 'item_count') do %>
         <h1><%= @items.count %> Items</h1>
       <% end %>
     </div>
   </div>
   <div class="row"></div>
-  <% cache do %>
+  <% cache(controller: 'items', action: 'index', action_suffix: 'item_all') do %>
   <% @items.each do |item| %>
       <div class="col-sm-3">
         <h5><%= item.name %></h5>
